@@ -46,6 +46,7 @@ if(isset($_GET["download"])) {
 }
 $db->query("UPDATE `". MAI_PREFIX ."files` SET `views` = views+1 WHERE `id` = '$fid'");
 $name = $lang->name." : ".$file->name;
+if(!empty($file->description))
 $description = $lang->description." : ".$file->description;
 $time = $lang->uploaded_on." : ".date("D, d M Y",$file->time);
 $size = $lang->size." : ".convert($file->size);
