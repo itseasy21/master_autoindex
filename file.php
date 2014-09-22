@@ -45,16 +45,17 @@ if(isset($_GET["download"])) {
 	}
 }
 $db->query("UPDATE `". MAI_PREFIX ."files` SET `views` = views+1 WHERE `id` = '$fid'");
-$name = $lang->name." : ".$file->name;
+
+$ext = (object)pathinfo($file->path);
+$ext->extension = strtolower($ext->extension);
+
+$name = $lang->name." : ".str_replace('.'.$ext->extension,'',$file->name);
 if(!empty($file->description))
 $description = $lang->description." : ".$file->description;
 $time = $lang->uploaded_on." : ".date("D, d M Y",$file->time);
 $size = $lang->size." : ".convert($file->size);
 $dloads = $lang->downloads." : ".$file->dcount;
 $views = $lang->views." : ".$file->views;
-
-$ext = (object)pathinfo($file->path);
-$ext->extension = strtolower($ext->extension);
 
 
 if(in_array($ext->extension,array('png','jpg','jpeg','gif','jar'))) {
